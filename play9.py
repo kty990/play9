@@ -1,5 +1,5 @@
 import random as r
-import time as tell
+import time as t
 
 card_values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
 suits = ["♠","♣","♥","♦"]
