@@ -159,3 +159,5 @@ def main(num_of_players):
     for x in range(num_of_players):
         print(x + "\'s hand:\n" + hands[x])
     print("Now you can determine who wins!") #Automatic system coming after this is confirmed working without it.
+
+main()
