@@ -2,7 +2,7 @@ import random as r
 import time as t
 
 card_values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
-suits = ["♠","♣","♥","♦"]
+suits = ["â™ ","â™£","â™¥","â™¦"]
 cards = []
 unshuffled_cards = []
 hands = []
@@ -70,6 +70,7 @@ def deal():
 
 def flip_card(x): #x is equal to the hand number
     global visible_hands
+    global hands
     print("Hand number *" + str(x) + "*\n" + visible_hands[x])
     print("1-9 starting in top left, ending bottom right")
     flip_cardA = input("Which card would you like to flip? : ")
@@ -167,3 +168,4 @@ def main(num_of_players):
     print("Now you can determine who wins!") #Automatic system coming after this is confirmed working without it.
 
 main(2)
+
