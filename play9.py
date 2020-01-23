@@ -12,7 +12,7 @@ player_ended = False
 
 for possible in range(len(card_values)):
     for suits_available in range(len(suits)):
-        card = card_values(possible),suits[suits_available]
+        card = card_values[possible],suits[suits_available]
         cards.insert(0, card)
 
 def modify_hand(hand_number, hands_list, pos_in_hand, new_value):
@@ -31,7 +31,7 @@ def isInt(value):
     """
     try:
         test = int(value)
-        if test < 9 and test > 1:
+        if test <= 9 and test >= 1:
             return True
         else:
             return False
@@ -50,9 +50,9 @@ def get_non_duplicate():
             current_hand = hands[i]
             for x in range(len(current_hand)):
                 unshuffled_cards.insert(len(unshuffled_cards), current_hand[x]) #Add all of the cards currently in player hands into the unshuffled cards list, to prevent duplicate cards from being dealt.
-    card_choice = cards[r.randint(len(cards))]
+    card_choice = cards[r.randint(0,len(cards)-1)]
     while card_choice in unshuffled_cards:
-        card_choice = cards[r.randint(len(cards))]
+        card_choice = cards[r.randint(0,len(cards)-1)]
     return card_choice
     
 def deal():
@@ -68,12 +68,18 @@ def deal():
         hand.insert(len(hand), card)
     return hand
 
-def flip_card():
+def flip_card(x): #x is equal to the hand number
     global visible_hands
+    print("Hand number *" + str(x) + "*\n" + visible_hands[x])
     print("1-9 starting in top left, ending bottom right")
     flip_cardA = input("Which card would you like to flip? : ")
     while isInt(flip_cardA) == False:
         flip_cardA = input("Which card would you like to flip? : ")
+    flip_cardA = int(flip_cardA)
+    print("DEBUG CODE:")
+    print(len(visible_hands))
+    print(len(hands))
+    print(flip_cardA-1)
     if visible_hands[x][flip_cardA-1] != hands[x][flip_cardA-1]:
         v_hand = visible_hands[x]
         v_hand[flip_cardA-1] = hands[x][flip_cardA-1]
@@ -81,7 +87,7 @@ def flip_card():
     else:
         print("INVALID FLIP: [Reason: Card already flipped]")
         print("TRY AGAIN!")
-        flip_card()
+        flip_card(x)
 
 def takeTurn(hand_number):
     global hands
@@ -116,7 +122,7 @@ def takeTurn(hand_number):
             visible_hands[hand_number][choice] = modify_hand(hand_number, visible_hands, choice, drawn_card)
             print("Your new hand:\n" + visible_hands[hand_number])
         elif choice.lower() == "flip":
-            flip_card()
+            flip_card(hand_number)
     elif choice.lower() == "take":
         print("Which card will you replace?")
         choice = input(" -> ")
@@ -141,11 +147,11 @@ def main(num_of_players):
     global visible_hands
     global middle_card
     for x in range(num_of_players):
-        hand = [x, deal()] #hand 0 (1)
+        hand = [0, deal()] #hand 0 (1)
         hands.insert(len(hands),hand)
-        visible_hands.insert(x, "---\n---\n---")
-        flip_card()
-        flip_card()
+        visible_hands.insert(len(visible_hands), "---\n---\n---")
+        flip_card(x)
+        flip_card(x)
     middle_card = get_non_duplicate()
     unshuffled_cards.insert(len(unshuffled_cards), middle_card)
     x = 0
@@ -160,4 +166,4 @@ def main(num_of_players):
         print(x + "\'s hand:\n" + hands[x])
     print("Now you can determine who wins!") #Automatic system coming after this is confirmed working without it.
 
-main()
+main(2)
