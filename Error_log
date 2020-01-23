@@ -1,0 +1,46 @@
+# Current Error list
+
+-- Code :: FUNCTION --
+
+def flip_card(x): #x is equal to the hand number
+    global visible_hands
+    print("Hand number *" + str(x) + "*\n" + visible_hands[x])
+    print("1-9 starting in top left, ending bottom right")
+    flip_cardA = input("Which card would you like to flip? : ")
+    while isInt(flip_cardA) == False:
+        flip_cardA = input("Which card would you like to flip? : ")
+    flip_cardA = int(flip_cardA)
+    print("DEBUG CODE:")
+    print(len(visible_hands))
+    print(len(hands))
+    print(flip_cardA-1)
+    if visible_hands[x][flip_cardA-1] != hands[x][flip_cardA-1]:
+        v_hand = visible_hands[x]
+        v_hand[flip_cardA-1] = hands[x][flip_cardA-1]
+        visible_hands[x] = v_hand
+    else:
+        print("INVALID FLIP: [Reason: Card already flipped]")
+        print("TRY AGAIN!")
+        flip_card(x)
+
+
+-- Output :: ERROR --
+
+Hand number *0*
+---
+---
+---
+1-9 starting in top left, ending bottom right
+Which card would you like to flip? : 1
+DEBUG CODE:
+1
+1
+0
+Traceback (most recent call last):
+  File "C:/Users/KUTCHERT/Downloads/play9-test.py", line 169, in <module>
+    main(2)
+  File "C:/Users/KUTCHERT/Downloads/play9-test.py", line 153, in <module>
+    flip_card(x)
+  File "C:/Users/KUTCHERT/Downloads/play9-test.py", line 85, in <module>
+    v_hand[flip_cardA-1] = hands[x][flip_cardA-1]
+builtins.TypeError: 'str' object does not support item assignment
